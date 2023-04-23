@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import './App.css';
-
+// Could you refactor this code
 const App = () => {
 	const [courseGoals, setCourseGoals] = useState([
 		{ text: 'Do all exercises!', id: 'g1' },
