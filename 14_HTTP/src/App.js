@@ -8,20 +8,23 @@ function App() {
 	const [movies, setMovies] = useState([]);
 
 	const fetchMoviesHandler = () => {
-		fetch(BASE_URL + '/api/films')
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => setMovies(data.results));
-		// .catch((err) => console.error(err));
-	};
+		let dataLogged = false; // Flag variable to track if the data has been logged
 
-	fetchMoviesHandler();
+		fetch(BASE_URL + '/api/films')
+			.then((res) => res.json())
+			.then((data) => {
+				if (!dataLogged) {
+					console.log(data.results); // Log the data only if it hasn't been logged before
+					dataLogged = true; // Set the flag to true to indicate the data has been logged
+				}
+				setMovies(data.results);
+			});
+	};
 
 	return (
 		<React.Fragment>
 			<section>
-				<button>Fetch Movies</button>
+				<button onClick={fetchMoviesHandler}>Fetch Movies</button>
 			</section>
 			<section>
 				<MoviesList movies={movies} />
