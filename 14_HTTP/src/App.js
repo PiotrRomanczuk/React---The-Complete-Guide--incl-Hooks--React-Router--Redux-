@@ -4,11 +4,15 @@ import MoviesList from './components/MoviesList';
 import './App.css';
 
 function App() {
-	const BASE_URL = 'https://swapi.py4e.com/';
 	const [movies, setMovies] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const BASE_URL = 'https://swapi.py4e.com/';
 
 	const fetchMoviesHandler = () => {
 		let dataLogged = false; // Flag variable to track if the data has been logged
+
+		setIsLoading(true);
 
 		fetch(BASE_URL + '/api/films')
 			.then((res) => res.json())
@@ -19,6 +23,7 @@ function App() {
 				}
 				setMovies(data.results);
 			});
+		setIsLoading(false);
 	};
 
 	return (
@@ -27,7 +32,8 @@ function App() {
 				<button onClick={fetchMoviesHandler}>Fetch Movies</button>
 			</section>
 			<section>
-				<MoviesList movies={movies} />
+				{!isLoading && <MoviesList movies={movies} />}
+				{isLoading && <p>Data is loading</p>}
 			</section>
 		</React.Fragment>
 	);
